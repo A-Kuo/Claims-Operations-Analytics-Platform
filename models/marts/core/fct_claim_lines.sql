@@ -1,0 +1,22 @@
+select
+    line_id,
+    claim_id,
+    provider_id,
+    payer_id,
+    line_number,
+    service_code,
+    service_category,
+    diagnosis_code,
+    service_date,
+    billed_amount,
+    allowed_amount,
+    paid_amount,
+    units,
+    modifier,
+    paid_to_billed_ratio,
+    current_status,
+    is_open,
+    is_rework,
+    ever_denied,
+    is_kpi_eligible
+from {{ ref('int_claim_lines_enriched') }}

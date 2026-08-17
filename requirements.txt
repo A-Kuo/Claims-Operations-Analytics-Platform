@@ -1,0 +1,10 @@
+# Local analytics stack. Install into .venv with Python 3.12.
+dbt-core==1.9.4
+dbt-duckdb==1.9.3
+duckdb==1.2.2
+pandas==2.2.3
+numpy==2.2.4
+streamlit==1.45.1
+plotly==5.24.1
+matplotlib==3.10.1
+pyarrow==19.0.1

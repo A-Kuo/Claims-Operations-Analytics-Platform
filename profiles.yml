@@ -1,0 +1,13 @@
+claims_ops:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: target/claims_ops.duckdb
+      threads: 4
+      schema: main
+    ci:
+      type: duckdb
+      path: target/ci.duckdb
+      threads: 2
+      schema: main

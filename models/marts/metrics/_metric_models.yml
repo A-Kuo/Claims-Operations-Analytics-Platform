@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: mart_claims_overview_daily
+    description: Daily activity spine with submitted, adjudicated, and paid volumes plus cohort rates.
+    columns:
+      - name: metric_date
+        data_tests: [unique, not_null]
+  - name: mart_claim_backlog
+    description: Open claims as of the project as-of date, with SLA aging buckets.
+    columns:
+      - name: claim_id
+        data_tests: [unique, not_null]
+  - name: mart_claim_backlog_by_provider
+    description: Open inventory rolled to provider for work-queue targeting.
+  - name: mart_denials_by_reason
+    description: Denial events by reason, payer, provider, and service category.
+  - name: mart_denial_patterns
+    description: Monthly denial trends used to find reasons that are accelerating.
+  - name: mart_payment_lag_by_service
+    description: Payment lag and paid-to-billed ratios by service category and payer type.
+  - name: mart_claim_turnaround
+    description: Adjudicated claims with turnaround days for distribution and segmentation.
+  - name: mart_payment_variance
+    description: Billed, allowed, and paid amounts by provider and service category.
+  - name: mart_provider_claim_quality
+    description: Provider scorecard with denial, rework, first-pass, and SLA rates plus a risk bucket.
+    columns:
+      - name: provider_id
+        data_tests: [unique, not_null]
+      - name: risk_bucket
+        data_tests:
+          - accepted_values:
+              values: ['high', 'watch', 'in_control']
+  - name: mart_provider_performance
+    description: Provider-group scorecard for operations leadership.
+  - name: mart_data_quality_exceptions
+    description: Counts of extract defects retained from staging for the data-quality story.
+
+unit_tests:
+  - name: payment_issued_maps_to_paid_status
+    description: Latest payment event must close the claim as paid, not leave it approved.
+    model: int_claim_current_state
+    given:
+      - input: ref('int_claim_event_timeline')
+        rows:
+          - claim_id: CLM-UNIT-1
+            last_event_type: payment_issued
+            last_event_at: "2026-02-01 08:00:00"
+            last_adjudicated_at: "2026-01-20 15:00:00"
+    expect:
+      rows:
+        - claim_id: CLM-UNIT-1
+          current_status: paid
+          is_open: false
+          is_approved_or_paid: true
+          is_currently_denied: false
+          is_adjudicated: true
+  - name: pended_claim_stays_open
+    model: int_claim_current_state
+    given:
+      - input: ref('int_claim_event_timeline')
+        rows:
+          - claim_id: CLM-UNIT-2
+            last_event_type: additional_info_requested
+            last_event_at: "2026-03-01 13:00:00"
+            last_adjudicated_at: null
+    expect:
+      rows:
+        - claim_id: CLM-UNIT-2
+          current_status: pended
+          is_open: true
+          is_adjudicated: false

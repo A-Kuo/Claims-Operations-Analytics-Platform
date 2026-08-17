@@ -1,0 +1,23 @@
+version: 2
+
+seeds:
+  - name: status_crosswalk
+    description: Maps messy header status strings to canonical claim statuses.
+    columns:
+      - name: raw_status
+        data_tests: [unique, not_null]
+      - name: canonical_status
+        data_tests: [not_null]
+  - name: event_type_crosswalk
+    description: Maps messy event type strings to canonical lifecycle events.
+    config:
+      column_types:
+        event_sequence: integer
+        is_adjudication_event: boolean
+        is_payment_event: boolean
+        is_rework_event: boolean
+    columns:
+      - name: raw_event_type
+        data_tests: [unique, not_null]
+      - name: canonical_event_type
+        data_tests: [not_null]

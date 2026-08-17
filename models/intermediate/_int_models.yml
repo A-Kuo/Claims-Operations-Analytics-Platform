@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: int_claim_event_timeline
+    description: One row per claim with first/last timestamps for each lifecycle event type.
+    columns:
+      - name: claim_id
+        data_tests: [unique, not_null]
+  - name: int_claim_current_state
+    description: Current operational status derived from the latest canonical event, not the messy header status.
+    columns:
+      - name: claim_id
+        data_tests: [unique, not_null]
+      - name: current_status
+        data_tests:
+          - accepted_values:
+              values: ['submitted', 'in_review', 'pended', 'approved', 'denied', 'paid', 'voided', 'unknown']
+  - name: int_claim_lifecycle
+    description: Claim-grain business entity with turnaround, lag, rework, and SLA flags. This is the KPI source of truth.
+    columns:
+      - name: claim_id
+        data_tests: [unique, not_null]
+      - name: submission_date
+        data_tests: [not_null]
+      - name: current_status
+        data_tests: [not_null]
+  - name: int_claim_lines_enriched
+    description: Claim lines joined to lifecycle flags for service-category analysis.
+    columns:
+      - name: line_id
+        data_tests: [unique, not_null]
+  - name: int_denial_events
+    description: One row per denial event, sequenced within the claim for recovery analysis.
+    columns:
+      - name: denial_event_id
+        data_tests: [unique, not_null]
+  - name: int_payment_events
+    description: One row per payment_issued event with lag from last adjudication.
+    columns:
+      - name: payment_event_id
+        data_tests: [unique, not_null]

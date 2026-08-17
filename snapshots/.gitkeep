@@ -1,0 +1,1 @@
+Snapshots are disabled in Version 1. In a production warehouse this folder would track claim current-status as SCD Type 2 as daily extracts arrive.

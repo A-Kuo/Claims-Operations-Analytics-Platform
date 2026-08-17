@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: stg_claim_headers
+    description: Deduplicated claim headers with typed dates, amounts, and canonical status.
+    columns:
+      - name: claim_id
+        description: Trimmed business claim identifier. Grain of the model.
+        data_tests: [unique, not_null]
+      - name: member_id
+        data_tests: [not_null]
+      - name: provider_id
+        data_tests: [not_null]
+      - name: payer_id
+        data_tests: [not_null]
+      - name: submission_date
+        data_tests: [not_null]
+      - name: claim_status
+        data_tests:
+          - accepted_values:
+              values: ['submitted', 'in_review', 'pended', 'approved', 'denied', 'paid', 'voided', 'unknown']
+      - name: billed_amount
+        description: Header billed amount. Negative values are retained and flagged.
+  - name: stg_claim_lines
+    description: Typed claim service lines.
+    columns:
+      - name: line_id
+        data_tests: [unique, not_null]
+      - name: claim_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_claim_headers')
+              field: claim_id
+      - name: service_code
+        data_tests: [not_null]
+  - name: stg_claim_events
+    description: Typed claim lifecycle events with canonical event types. Duplicate intake events are flagged, not dropped.
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+      - name: claim_id
+        data_tests: [not_null]
+      - name: event_type
+        data_tests:
+          - accepted_values:
+              values:
+                  - claim_submitted
+                  - claim_received
+                  - claim_pended
+                  - additional_info_requested
+                  - claim_denied
+                  - claim_approved
+                  - claim_resubmitted
+                  - payment_issued
+                  - payment_adjusted
+                  - claim_voided
+                  - unknown
+  - name: stg_providers
+    description: Provider directory with missing specialty flagged.
+    columns:
+      - name: provider_id
+        data_tests: [unique, not_null]
+  - name: stg_members
+    description: De-identified member attributes.
+    columns:
+      - name: member_id
+        data_tests: [unique, not_null]
+  - name: stg_denial_codes
+    description: Denial reason reference.
+    columns:
+      - name: denial_reason_code
+        data_tests: [unique, not_null]
+  - name: stg_payers
+    description: Payer reference.
+    columns:
+      - name: payer_id
+        data_tests: [unique, not_null]

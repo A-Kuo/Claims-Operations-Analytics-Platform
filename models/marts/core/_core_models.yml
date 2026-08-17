@@ -1,0 +1,71 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: Calendar dimension from 2024-01-01 through 2027-12-31.
+    columns:
+      - name: date_day
+        data_tests: [unique, not_null]
+  - name: dim_member
+    description: De-identified member dimension, including an unknown member for orphaned claims.
+    columns:
+      - name: member_id
+        data_tests: [unique, not_null]
+  - name: dim_provider
+    description: Provider dimension. Missing specialties are labeled Unknown.
+    columns:
+      - name: provider_id
+        data_tests: [unique, not_null]
+  - name: dim_payer
+    columns:
+      - name: payer_id
+        data_tests: [unique, not_null]
+  - name: dim_service
+    columns:
+      - name: service_code
+        data_tests: [unique, not_null]
+  - name: dim_denial_reason
+    columns:
+      - name: denial_reason_code
+        data_tests: [unique, not_null]
+  - name: fct_claims
+    description: Claim-grain fact table used by dashboards and KPI marts.
+    columns:
+      - name: claim_id
+        data_tests: [unique, not_null]
+      - name: member_id
+        data_tests:
+          - relationships:
+              to: ref('dim_member')
+              field: member_id
+      - name: provider_id
+        data_tests:
+          - relationships:
+              to: ref('dim_provider')
+              field: provider_id
+      - name: payer_id
+        data_tests:
+          - relationships:
+              to: ref('dim_payer')
+              field: payer_id
+  - name: fct_claim_lines
+    columns:
+      - name: line_id
+        data_tests: [unique, not_null]
+  - name: fct_claim_events
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+  - name: fct_payments
+    columns:
+      - name: payment_event_id
+        data_tests: [unique, not_null]
+  - name: fct_denials
+    columns:
+      - name: denial_event_id
+        data_tests: [unique, not_null]
+      - name: denial_reason_code
+        data_tests:
+          - relationships:
+              to: ref('dim_denial_reason')
+              field: denial_reason_code

@@ -1,0 +1,44 @@
+name: claims_ops_analytics
+version: "1.0.0"
+config-version: 2
+profile: claims_ops
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
+
+target-path: target
+clean-targets: ["target", "dbt_packages", "logs"]
+
+vars:
+  as_of_date: "2026-08-17"
+  adjudication_sla_days: 14
+  payment_sla_days: 7
+  unknown_member_id: "MBR-UNKNOWN"
+  unknown_provider_id: "PRV-UNKNOWN"
+
+models:
+  claims_ops_analytics:
+    +on_schema_change: fail
+    staging:
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +schema: intermediate
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table
+      core:
+        +materialized: table
+      metrics:
+        +materialized: table
+
+seeds:
+  claims_ops_analytics:
+    +schema: seeds
+    +quote_columns: false

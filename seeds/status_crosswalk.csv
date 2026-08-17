@@ -1,0 +1,34 @@
+raw_status,canonical_status,status_family
+SUBMITTED,submitted,open
+Received,submitted,open
+NEW,submitted,open
+submitted,submitted,open
+IN REVIEW,in_review,open
+in_review,in_review,open
+Processing,in_review,open
+UNDER REVIEW,in_review,open
+PEND,pended,open
+Pended,pended,open
+pending info,pended,open
+HOLD,pended,open
+Pending,pended,open
+Approved,approved,adjudicated
+APPROVED,approved,adjudicated
+adj-approved,approved,adjudicated
+approved ,approved,adjudicated
+APPR,approved,adjudicated
+approved,approved,adjudicated
+DENIED,denied,adjudicated
+Deny,denied,adjudicated
+rejected,denied,adjudicated
+adj-denied,denied,adjudicated
+DENY,denied,adjudicated
+denied,denied,adjudicated
+PAID,paid,closed
+paid,paid,closed
+Payment Complete,paid,closed
+paid ,paid,closed
+VOID,voided,closed
+Cancelled,voided,closed
+void,voided,closed
+voided,voided,closed

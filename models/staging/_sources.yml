@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: >
+      Synthetic claims operations extracts loaded from data/raw. This is not
+      real patient, member, or provider data.
+    tables:
+      - name: raw_claim_headers
+        description: Claim-level extract with messy statuses, mixed dates, and duplicate reloads.
+        columns:
+          - name: claim_id
+            description: Business claim identifier. Not unique in the raw extract.
+            data_tests:
+              - not_null
+      - name: raw_claim_lines
+        description: Service-line extract. Grain is claim line.
+      - name: raw_claim_events
+        description: Adjudication and payment event log, including duplicate intake events.
+      - name: raw_providers
+        description: Provider directory. Specialty is missing on a subset of rows.
+      - name: raw_members
+        description: De-identified member attributes. No names, addresses, or dates of birth.
+      - name: raw_denial_codes
+        description: Payer denial reason reference.
+      - name: raw_payers
+        description: Payer/contract reference.
