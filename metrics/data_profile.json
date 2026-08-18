@@ -1,0 +1,861 @@
+{
+  "generated_at": "2026-08-18T21:56:25.925412Z",
+  "dbt_version": "1.9.4",
+  "adapter": "duckdb",
+  "target": "dev",
+  "summary": {
+    "total": {
+      "total": 83,
+      "pass": 83,
+      "fail": 0,
+      "error": 0,
+      "skip": 0
+    },
+    "data_tests": {
+      "total": 81,
+      "pass": 81,
+      "fail": 0,
+      "error": 0,
+      "skip": 0
+    },
+    "unit_tests": {
+      "total": 2,
+      "pass": 2,
+      "fail": 0,
+      "error": 0,
+      "skip": 0
+    }
+  },
+  "tests": [
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_dim_date_date_day.e3f312efb2",
+      "name": "not_null_dim_date_date_day",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "dim_date",
+      "column": "date_day",
+      "status": "pass",
+      "execution_time": 0.085
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_dim_date_date_day.d56fd19199",
+      "name": "unique_dim_date_date_day",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "dim_date",
+      "column": "date_day",
+      "status": "pass",
+      "execution_time": 0.084
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_dim_denial_reason_denial_reason_code.e3b7be09df",
+      "name": "not_null_dim_denial_reason_denial_reason_code",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "dim_denial_reason",
+      "column": "denial_reason_code",
+      "status": "pass",
+      "execution_time": 0.09
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.relationships_fct_denials_denial_reason_code__denial_reason_code__ref_dim_denial_reason_.b0e853d4c8",
+      "name": "relationships_fct_denials_denial_reason_code__denial_reason_code__ref_dim_denial_reason_",
+      "kind": "data_test",
+      "test_type": "relationships",
+      "model": "dim_denial_reason",
+      "column": "denial_reason_code",
+      "status": "pass",
+      "execution_time": 0.089
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_dim_denial_reason_denial_reason_code.2f372bc859",
+      "name": "unique_dim_denial_reason_denial_reason_code",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "dim_denial_reason",
+      "column": "denial_reason_code",
+      "status": "pass",
+      "execution_time": 0.099
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_dim_member_member_id.11ee978594",
+      "name": "not_null_dim_member_member_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "dim_member",
+      "column": "member_id",
+      "status": "pass",
+      "execution_time": 0.096
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.relationships_fct_claims_member_id__member_id__ref_dim_member_.d012d868a0",
+      "name": "relationships_fct_claims_member_id__member_id__ref_dim_member_",
+      "kind": "data_test",
+      "test_type": "relationships",
+      "model": "dim_member",
+      "column": "member_id",
+      "status": "pass",
+      "execution_time": 0.092
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_dim_member_member_id.f6b6d45b26",
+      "name": "unique_dim_member_member_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "dim_member",
+      "column": "member_id",
+      "status": "pass",
+      "execution_time": 0.097
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_dim_payer_payer_id.0b14abab2b",
+      "name": "not_null_dim_payer_payer_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "dim_payer",
+      "column": "payer_id",
+      "status": "pass",
+      "execution_time": 0.086
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.relationships_fct_claims_payer_id__payer_id__ref_dim_payer_.500adc2b05",
+      "name": "relationships_fct_claims_payer_id__payer_id__ref_dim_payer_",
+      "kind": "data_test",
+      "test_type": "relationships",
+      "model": "dim_payer",
+      "column": "payer_id",
+      "status": "pass",
+      "execution_time": 0.077
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_dim_payer_payer_id.6a0ffda286",
+      "name": "unique_dim_payer_payer_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "dim_payer",
+      "column": "payer_id",
+      "status": "pass",
+      "execution_time": 0.075
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_dim_provider_provider_id.2e9564d903",
+      "name": "not_null_dim_provider_provider_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "dim_provider",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.073
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.relationships_fct_claims_provider_id__provider_id__ref_dim_provider_.1fba0c6a5f",
+      "name": "relationships_fct_claims_provider_id__provider_id__ref_dim_provider_",
+      "kind": "data_test",
+      "test_type": "relationships",
+      "model": "dim_provider",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.082
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_dim_provider_provider_id.2644763fc5",
+      "name": "unique_dim_provider_provider_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "dim_provider",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.087
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_dim_service_service_code.ff7546664f",
+      "name": "not_null_dim_service_service_code",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "dim_service",
+      "column": "service_code",
+      "status": "pass",
+      "execution_time": 0.082
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_dim_service_service_code.921fc4cafa",
+      "name": "unique_dim_service_service_code",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "dim_service",
+      "column": "service_code",
+      "status": "pass",
+      "execution_time": 0.08
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_event_type_crosswalk_canonical_event_type.f613afd4f0",
+      "name": "not_null_event_type_crosswalk_canonical_event_type",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "event_type_crosswalk",
+      "column": "canonical_event_type",
+      "status": "pass",
+      "execution_time": 0.086
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_event_type_crosswalk_raw_event_type.1a3bd9e731",
+      "name": "not_null_event_type_crosswalk_raw_event_type",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "event_type_crosswalk",
+      "column": "raw_event_type",
+      "status": "pass",
+      "execution_time": 0.084
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_event_type_crosswalk_raw_event_type.c8f4b117dd",
+      "name": "unique_event_type_crosswalk_raw_event_type",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "event_type_crosswalk",
+      "column": "raw_event_type",
+      "status": "pass",
+      "execution_time": 0.075
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_fct_claim_events_event_id.b5aa0f5816",
+      "name": "not_null_fct_claim_events_event_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "fct_claim_events",
+      "column": "event_id",
+      "status": "pass",
+      "execution_time": 0.084
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_fct_claim_events_event_id.58598bcf3f",
+      "name": "unique_fct_claim_events_event_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "fct_claim_events",
+      "column": "event_id",
+      "status": "pass",
+      "execution_time": 0.178
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_fct_claim_lines_line_id.af515b4f3c",
+      "name": "not_null_fct_claim_lines_line_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "fct_claim_lines",
+      "column": "line_id",
+      "status": "pass",
+      "execution_time": 0.084
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_fct_claim_lines_line_id.a132cfc8eb",
+      "name": "unique_fct_claim_lines_line_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "fct_claim_lines",
+      "column": "line_id",
+      "status": "pass",
+      "execution_time": 0.175
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.assert_open_claims_are_unpaid",
+      "name": "assert_open_claims_are_unpaid",
+      "kind": "data_test",
+      "test_type": "singular",
+      "model": "fct_claims",
+      "column": null,
+      "status": "pass",
+      "execution_time": 0.04
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.assert_turnaround_days_not_negative",
+      "name": "assert_turnaround_days_not_negative",
+      "kind": "data_test",
+      "test_type": "singular",
+      "model": "fct_claims",
+      "column": null,
+      "status": "pass",
+      "execution_time": 0.042
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_fct_claims_claim_id.0543ffedac",
+      "name": "not_null_fct_claims_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "fct_claims",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.079
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_fct_claims_claim_id.bdd8a910f3",
+      "name": "unique_fct_claims_claim_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "fct_claims",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.154
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_fct_denials_denial_event_id.1b65eaff2c",
+      "name": "not_null_fct_denials_denial_event_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "fct_denials",
+      "column": "denial_event_id",
+      "status": "pass",
+      "execution_time": 0.077
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_fct_denials_denial_event_id.d014a9b438",
+      "name": "unique_fct_denials_denial_event_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "fct_denials",
+      "column": "denial_event_id",
+      "status": "pass",
+      "execution_time": 0.151
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_fct_payments_payment_event_id.88c94a16e9",
+      "name": "not_null_fct_payments_payment_event_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "fct_payments",
+      "column": "payment_event_id",
+      "status": "pass",
+      "execution_time": 0.08
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_fct_payments_payment_event_id.59368bd5dc",
+      "name": "unique_fct_payments_payment_event_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "fct_payments",
+      "column": "payment_event_id",
+      "status": "pass",
+      "execution_time": 0.082
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.accepted_values_int_claim_current_state_current_status__submitted__in_review__pended__approved__denied__paid__voided__unknown.90f86e1d96",
+      "name": "accepted_values_int_claim_current_state_current_status__submitted__in_review__pended__approved__denied__paid__voided__unknown",
+      "kind": "data_test",
+      "test_type": "accepted_values",
+      "model": "int_claim_current_state",
+      "column": "current_status",
+      "status": "pass",
+      "execution_time": 0.313
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_claim_current_state_claim_id.f7b50363f9",
+      "name": "not_null_int_claim_current_state_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_claim_current_state",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.107
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_int_claim_current_state_claim_id.1f7032c821",
+      "name": "unique_int_claim_current_state_claim_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "int_claim_current_state",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.532
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_claim_event_timeline_claim_id.449b9a2afc",
+      "name": "not_null_int_claim_event_timeline_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_claim_event_timeline",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.123
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_int_claim_event_timeline_claim_id.ebf1994508",
+      "name": "unique_int_claim_event_timeline_claim_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "int_claim_event_timeline",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.508
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_claim_lifecycle_claim_id.1992805b1b",
+      "name": "not_null_int_claim_lifecycle_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_claim_lifecycle",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.604
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_claim_lifecycle_current_status.8ecad7875b",
+      "name": "not_null_int_claim_lifecycle_current_status",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_claim_lifecycle",
+      "column": "current_status",
+      "status": "pass",
+      "execution_time": 0.737
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_claim_lifecycle_submission_date.a53d0a138e",
+      "name": "not_null_int_claim_lifecycle_submission_date",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_claim_lifecycle",
+      "column": "submission_date",
+      "status": "pass",
+      "execution_time": 0.833
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_int_claim_lifecycle_claim_id.9cced6340b",
+      "name": "unique_int_claim_lifecycle_claim_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "int_claim_lifecycle",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.894
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_claim_lines_enriched_line_id.a75f71d589",
+      "name": "not_null_int_claim_lines_enriched_line_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_claim_lines_enriched",
+      "column": "line_id",
+      "status": "pass",
+      "execution_time": 1.259
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_int_claim_lines_enriched_line_id.d712882e99",
+      "name": "unique_int_claim_lines_enriched_line_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "int_claim_lines_enriched",
+      "column": "line_id",
+      "status": "pass",
+      "execution_time": 1.218
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_denial_events_denial_event_id.58f4dea366",
+      "name": "not_null_int_denial_events_denial_event_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_denial_events",
+      "column": "denial_event_id",
+      "status": "pass",
+      "execution_time": 0.912
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_int_denial_events_denial_event_id.a466b768b2",
+      "name": "unique_int_denial_events_denial_event_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "int_denial_events",
+      "column": "denial_event_id",
+      "status": "pass",
+      "execution_time": 0.91
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_int_payment_events_payment_event_id.d7ccc6719e",
+      "name": "not_null_int_payment_events_payment_event_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "int_payment_events",
+      "column": "payment_event_id",
+      "status": "pass",
+      "execution_time": 0.765
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_int_payment_events_payment_event_id.e90ac9eed4",
+      "name": "unique_int_payment_events_payment_event_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "int_payment_events",
+      "column": "payment_event_id",
+      "status": "pass",
+      "execution_time": 0.893
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_mart_claim_backlog_claim_id.e2205c1a7b",
+      "name": "not_null_mart_claim_backlog_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "mart_claim_backlog",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.038
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_mart_claim_backlog_claim_id.c311228e99",
+      "name": "unique_mart_claim_backlog_claim_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "mart_claim_backlog",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.051
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_mart_claims_overview_daily_metric_date.80b8183860",
+      "name": "not_null_mart_claims_overview_daily_metric_date",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "mart_claims_overview_daily",
+      "column": "metric_date",
+      "status": "pass",
+      "execution_time": 0.041
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_mart_claims_overview_daily_metric_date.ccb79279f5",
+      "name": "unique_mart_claims_overview_daily_metric_date",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "mart_claims_overview_daily",
+      "column": "metric_date",
+      "status": "pass",
+      "execution_time": 0.031
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.accepted_values_mart_provider_claim_quality_risk_bucket__high__watch__in_control.9c1650002e",
+      "name": "accepted_values_mart_provider_claim_quality_risk_bucket__high__watch__in_control",
+      "kind": "data_test",
+      "test_type": "accepted_values",
+      "model": "mart_provider_claim_quality",
+      "column": "risk_bucket",
+      "status": "pass",
+      "execution_time": 0.107
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_mart_provider_claim_quality_provider_id.29c30e40f9",
+      "name": "not_null_mart_provider_claim_quality_provider_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "mart_provider_claim_quality",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.052
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_mart_provider_claim_quality_provider_id.e669710c2c",
+      "name": "unique_mart_provider_claim_quality_provider_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "mart_provider_claim_quality",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.018
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.source_not_null_raw_raw_claim_headers_claim_id.6219bb61ec",
+      "name": "source_not_null_raw_raw_claim_headers_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "raw_claim_headers",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.064
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_status_crosswalk_canonical_status.fc3c170476",
+      "name": "not_null_status_crosswalk_canonical_status",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "status_crosswalk",
+      "column": "canonical_status",
+      "status": "pass",
+      "execution_time": 0.037
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_status_crosswalk_raw_status.81ebcad80d",
+      "name": "not_null_status_crosswalk_raw_status",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "status_crosswalk",
+      "column": "raw_status",
+      "status": "pass",
+      "execution_time": 0.059
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_status_crosswalk_raw_status.48a4fdd4e2",
+      "name": "unique_status_crosswalk_raw_status",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "status_crosswalk",
+      "column": "raw_status",
+      "status": "pass",
+      "execution_time": 0.022
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.accepted_values_stg_claim_events_event_type__claim_submitted__claim_received__claim_pended__additional_info_requested__claim_denied__claim_approved__claim_resubmitted__payment_issued__payment_adjusted__claim_voided__unknown.0f8393ebe9",
+      "name": "accepted_values_stg_claim_events_event_type__claim_submitted__claim_received__claim_pended__additional_info_requested__claim_denied__claim_approved__claim_resubmitted__payment_issued__payment_adjusted__claim_voided__unknown",
+      "kind": "data_test",
+      "test_type": "accepted_values",
+      "model": "stg_claim_events",
+      "column": "event_type",
+      "status": "pass",
+      "execution_time": 0.107
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_events_claim_id.b2d29b8ab2",
+      "name": "not_null_stg_claim_events_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_events",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.12
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_events_event_id.db132ff5d8",
+      "name": "not_null_stg_claim_events_event_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_events",
+      "column": "event_id",
+      "status": "pass",
+      "execution_time": 0.308
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_stg_claim_events_event_id.b129220382",
+      "name": "unique_stg_claim_events_event_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "stg_claim_events",
+      "column": "event_id",
+      "status": "pass",
+      "execution_time": 0.345
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.accepted_values_stg_claim_headers_claim_status__submitted__in_review__pended__approved__denied__paid__voided__unknown.085b366a5f",
+      "name": "accepted_values_stg_claim_headers_claim_status__submitted__in_review__pended__approved__denied__paid__voided__unknown",
+      "kind": "data_test",
+      "test_type": "accepted_values",
+      "model": "stg_claim_headers",
+      "column": "claim_status",
+      "status": "pass",
+      "execution_time": 0.171
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_headers_claim_id.a4d2a5e98d",
+      "name": "not_null_stg_claim_headers_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_headers",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.099
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_headers_member_id.1c7cd9149d",
+      "name": "not_null_stg_claim_headers_member_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_headers",
+      "column": "member_id",
+      "status": "pass",
+      "execution_time": 0.201
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_headers_payer_id.7e4d3fb2b6",
+      "name": "not_null_stg_claim_headers_payer_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_headers",
+      "column": "payer_id",
+      "status": "pass",
+      "execution_time": 0.132
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_headers_provider_id.bb6fccdb5b",
+      "name": "not_null_stg_claim_headers_provider_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_headers",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.151
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_headers_submission_date.d5659f6df6",
+      "name": "not_null_stg_claim_headers_submission_date",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_headers",
+      "column": "submission_date",
+      "status": "pass",
+      "execution_time": 0.135
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.relationships_stg_claim_lines_claim_id__claim_id__ref_stg_claim_headers_.5e1aa46a79",
+      "name": "relationships_stg_claim_lines_claim_id__claim_id__ref_stg_claim_headers_",
+      "kind": "data_test",
+      "test_type": "relationships",
+      "model": "stg_claim_headers",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.171
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_stg_claim_headers_claim_id.d32f95c518",
+      "name": "unique_stg_claim_headers_claim_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "stg_claim_headers",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.106
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_lines_claim_id.f700f06d5b",
+      "name": "not_null_stg_claim_lines_claim_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_lines",
+      "column": "claim_id",
+      "status": "pass",
+      "execution_time": 0.185
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_lines_line_id.09de6e3baf",
+      "name": "not_null_stg_claim_lines_line_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_lines",
+      "column": "line_id",
+      "status": "pass",
+      "execution_time": 0.107
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_claim_lines_service_code.474ceba3fe",
+      "name": "not_null_stg_claim_lines_service_code",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_claim_lines",
+      "column": "service_code",
+      "status": "pass",
+      "execution_time": 0.153
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_stg_claim_lines_line_id.8c5478c02f",
+      "name": "unique_stg_claim_lines_line_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "stg_claim_lines",
+      "column": "line_id",
+      "status": "pass",
+      "execution_time": 0.178
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_denial_codes_denial_reason_code.72ac319309",
+      "name": "not_null_stg_denial_codes_denial_reason_code",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_denial_codes",
+      "column": "denial_reason_code",
+      "status": "pass",
+      "execution_time": 0.058
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_stg_denial_codes_denial_reason_code.73f985b535",
+      "name": "unique_stg_denial_codes_denial_reason_code",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "stg_denial_codes",
+      "column": "denial_reason_code",
+      "status": "pass",
+      "execution_time": 0.079
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_members_member_id.47ab6ecf6d",
+      "name": "not_null_stg_members_member_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_members",
+      "column": "member_id",
+      "status": "pass",
+      "execution_time": 0.092
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_stg_members_member_id.a9c0f83067",
+      "name": "unique_stg_members_member_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "stg_members",
+      "column": "member_id",
+      "status": "pass",
+      "execution_time": 0.117
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_payers_payer_id.1d8d884878",
+      "name": "not_null_stg_payers_payer_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_payers",
+      "column": "payer_id",
+      "status": "pass",
+      "execution_time": 0.09
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_stg_payers_payer_id.ca8563d390",
+      "name": "unique_stg_payers_payer_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "stg_payers",
+      "column": "payer_id",
+      "status": "pass",
+      "execution_time": 0.053
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.not_null_stg_providers_provider_id.0e2ff20969",
+      "name": "not_null_stg_providers_provider_id",
+      "kind": "data_test",
+      "test_type": "not_null",
+      "model": "stg_providers",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.093
+    },
+    {
+      "unique_id": "test.claims_ops_analytics.unique_stg_providers_provider_id.0ed2165052",
+      "name": "unique_stg_providers_provider_id",
+      "kind": "data_test",
+      "test_type": "unique",
+      "model": "stg_providers",
+      "column": "provider_id",
+      "status": "pass",
+      "execution_time": 0.117
+    },
+    {
+      "unique_id": "unit_test.claims_ops_analytics.int_claim_current_state.payment_issued_maps_to_paid_status",
+      "name": "payment_issued_maps_to_paid_status",
+      "kind": "unit_test",
+      "test_type": "unit_test",
+      "model": "int_claim_current_state",
+      "column": null,
+      "status": "pass",
+      "execution_time": 0.196
+    },
+    {
+      "unique_id": "unit_test.claims_ops_analytics.int_claim_current_state.pended_claim_stays_open",
+      "name": "pended_claim_stays_open",
+      "kind": "unit_test",
+      "test_type": "unit_test",
+      "model": "int_claim_current_state",
+      "column": null,
+      "status": "pass",
+      "execution_time": 0.146
+    }
+  ]
+}

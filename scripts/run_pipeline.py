@@ -41,6 +41,7 @@ def main() -> None:
     subprocess.run(dbt + ["run"], cwd=ROOT, check=True, env=env_profiles)
     if not args.skip_test:
         subprocess.run(dbt + ["test"], cwd=ROOT, check=True, env=env_profiles)
+        run([python, "scripts/build_data_profile.py"])
     print("Pipeline complete. Launch the dashboard with:")
     print(f"  {python} -m streamlit run dashboards/app.py")
 
