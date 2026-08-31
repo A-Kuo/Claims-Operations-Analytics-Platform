@@ -1,5 +1,9 @@
 # Claims Operations Analytics Platform
 
+[![Python](https://img.shields.io/badge/Python-3.12%2B-blue?logo=python&logoColor=blue&style=plastic)](https://www.python.org/downloads/release/python-3120/)
+[![MLOps](https://img.shields.io/badge/Fullstack-Ubuntu-orange?logo=ubuntu&style=plastic)](https://ubuntu.com/engage/mlops-guide)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-608CC4?&logoColor=608CC4&logo=postgresql&style=plastic)](https://www.postgresql.org/docs/18/index.html)
+
 An end-to-end analytics project that models the claims lifecycle from submission through adjudication and payment, turning raw operational events into validated KPI dashboards for backlog, denial, turnaround-time, and provider-performance analysis.
 
 This project is a business-facing data product: raw claims and adjudication data are cleaned, standardized, tested, and transformed into warehouse-style marts that support operations teams and analysts.
