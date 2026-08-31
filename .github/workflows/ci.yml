@@ -34,21 +34,18 @@ jobs:
             --exclude-dir=target \
             || true
 
-      - name: Run dbt parse with debug output
+      - name: Find the bad Jinja file
+        shell: bash
+        run: |
+          echo "Commit:"
+          git rev-parse HEAD
+
+          echo "Searching every tracked text file for Jinja tags..."
+          git grep -nE '\{%[-]?[[:space:]]*(if|elif|else|endif|for|endfor|macro|endmacro|test|endtest)' || true
+
+      - name: Parse dbt with debug output
         env:
           DBT_PROFILES_DIR: ${{ github.workspace }}
         run: |
           dbt deps --target ci
-          dbt parse --target ci --debug 2>&1 | tee dbt-parse-debug.log
-        continue-on-error: true
-
-      - name: Upload dbt diagnostic logs
-        uses: actions/upload-artifact@v4
-        with:
-          name: dbt-parse-diagnostics
-          path: |
-            dbt-parse-debug.log
-            logs/dbt.log
-
-      - name: Stop after diagnostics
-        run: exit 1
+          dbt parse --target ci --debug
