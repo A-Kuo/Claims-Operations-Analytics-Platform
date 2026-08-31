@@ -1,0 +1,5 @@
+project_id = "YOUR_SUPABASE_PROJECT_REF"
+
+[db.seed]
+enabled = true
+sql_paths = ["./seeds/00_status_crosswalk.sql", "./seeds/01_event_type_crosswalk.sql"]
