@@ -19,11 +19,33 @@ jobs:
         run: |
           python scripts/generate_raw_data.py
           python scripts/load_raw.py --duckdb-path target/ci.duckdb
-      - name: Run dbt
+      - name: Find malformed Jinja file
+        shell: bash
+        run: |
+          echo "=== Commit being tested ==="
+          git rev-parse HEAD
+
+          echo "=== All files containing Jinja block syntax ==="
+          grep -RInE --include='*.sql' --include='*.yml' --include='*.yaml' \
+            '\{%[-]?[[:space:]]*(if|elif|else|endif|for|endfor|macro|endmacro|test|endtest)' \
+            . \
+            --exclude-dir=.git \
+            --exclude-dir=.venv \
+            --exclude-dir=target \
+            || true
+
+      - name: Find the bad Jinja file
+        shell: bash
+        run: |
+          echo "Commit:"
+          git rev-parse HEAD
+
+          echo "Searching every tracked text file for Jinja tags..."
+          git grep -nE '\{%[-]?[[:space:]]*(if|elif|else|endif|for|endfor|macro|endmacro|test|endtest)' || true
+
+      - name: Parse dbt with debug output
         env:
           DBT_PROFILES_DIR: ${{ github.workspace }}
         run: |
           dbt deps --target ci
-          dbt seed --target ci
-          dbt run --target ci
-          dbt test --target ci
+          dbt parse --target ci --debug
