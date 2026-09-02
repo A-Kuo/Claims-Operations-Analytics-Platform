@@ -1,3 +1,6 @@
+CREATE INDEX IF NOT EXISTS idx_claim_headers_claim_id
+    ON raw.claim_headers (claim_id, header_last_updated_at DESC);
+
 CREATE INDEX IF NOT EXISTS idx_claim_headers_submission_date
     ON raw.claim_headers (submission_date);
 

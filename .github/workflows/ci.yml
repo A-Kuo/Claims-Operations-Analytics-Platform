@@ -19,33 +19,54 @@ jobs:
         run: |
           python scripts/generate_raw_data.py
           python scripts/load_raw.py --duckdb-path target/ci.duckdb
-      - name: Find malformed Jinja file
-        shell: bash
-        run: |
-          echo "=== Commit being tested ==="
-          git rev-parse HEAD
-
-          echo "=== All files containing Jinja block syntax ==="
-          grep -RInE --include='*.sql' --include='*.yml' --include='*.yaml' \
-            '\{%[-]?[[:space:]]*(if|elif|else|endif|for|endfor|macro|endmacro|test|endtest)' \
-            . \
-            --exclude-dir=.git \
-            --exclude-dir=.venv \
-            --exclude-dir=target \
-            || true
-
-      - name: Find the bad Jinja file
-        shell: bash
-        run: |
-          echo "Commit:"
-          git rev-parse HEAD
-
-          echo "Searching every tracked text file for Jinja tags..."
-          git grep -nE '\{%[-]?[[:space:]]*(if|elif|else|endif|for|endfor|macro|endmacro|test|endtest)' || true
-
-      - name: Parse dbt with debug output
+      - name: Run dbt
         env:
           DBT_PROFILES_DIR: ${{ github.workspace }}
         run: |
           dbt deps --target ci
-          dbt parse --target ci --debug
+          dbt seed --target ci
+          dbt run --target ci
+          dbt test --target ci
+
+  supabase-postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      SUPABASE_DB_URL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Apply Supabase migrations
+        run: |
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/create_schemas.sql
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/create_raw_tables.sql
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/create_indexes.sql
+      - name: Apply Supabase seeds
+        run: |
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/seeds/00_status_crosswalk.sql
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/seeds/01_event_type_crosswalk.sql
+      - name: Generate synthetic extracts
+        run: python scripts/generate_raw_data.py
+      - name: Build Postgres-shaped extracts
+        run: python scripts/build_postgres_extracts.py
+      - name: Load raw extracts into Postgres
+        run: python scripts/load_raw_to_postgres.py
+      - name: Validate row counts
+        run: python scripts/validate_postgres_load.py

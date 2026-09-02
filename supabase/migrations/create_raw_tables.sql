@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS raw.claim_headers (
-    claim_id TEXT PRIMARY KEY,
+    header_id BIGSERIAL PRIMARY KEY,
+    claim_id TEXT NOT NULL,
     member_id TEXT,
     provider_id TEXT,
     payer_id TEXT,

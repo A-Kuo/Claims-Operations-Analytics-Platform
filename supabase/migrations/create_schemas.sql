@@ -1,4 +1,4 @@
-create schema if not exists raw;
-create schema if not exists analytics;
-create schema if not exists serving;
-create schema if not exists ml;
+CREATE SCHEMA IF NOT EXISTS raw;
+CREATE SCHEMA IF NOT EXISTS analytics;
+CREATE SCHEMA IF NOT EXISTS serving;
+CREATE SCHEMA IF NOT EXISTS ml;

@@ -1,4 +1,4 @@
-insert into raw.event_type_crosswalk (event_type_alias, canonical_event_type, event_family) values
+INSERT into raw.event_type_crosswalk (event_type_alias, canonical_event_type, event_family) values
     ('SUBMIT', 'submitted', 'intake'),
     ('submitted', 'submitted', 'intake'),
     ('DENY', 'denied', 'adjudication'),
