@@ -28,3 +28,8 @@ Thumbs.db
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Secrets
+.env
+.env.*
+!.env.example
