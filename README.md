@@ -194,4 +194,4 @@ The short operations memo is [analyses/operations_memo.md](analyses/operations_m
 
 ## License
 
-Use this repo as a portfolio project. Do not present the dataset as real claims.
+Open
