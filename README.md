@@ -44,8 +44,9 @@ Full logic lives in [docs/metric_dictionary.md](docs/metric_dictionary.md).
 
 <img width="1651" height="867" alt="image" src="https://github.com/user-attachments/assets/1d3e4e71-0d0c-4112-92f9-891e763d64a8" />
 <img width="1668" height="966" alt="image" src="https://github.com/user-attachments/assets/7359ec87-0653-4b5f-a2cf-6b709b111376" />
-https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/blob/main/screenshots/04_claim_journey.png
-https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/blob/main/screenshots/01_operations_overview.png
+<img width="1675" height="897" alt="image" src="https://github.com/user-attachments/assets/0846881c-cb95-4999-ab8a-10a4481eccd7" />
+<img width="1668" height="867" alt="image" src="https://github.com/user-attachments/assets/31310110-9631-4873-b2e5-65de0fb0b44e" />
+
 
 
 ## Business pain point
