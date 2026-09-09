@@ -40,6 +40,14 @@ The platform supports five decisions:
 
 Full logic lives in [docs/metric_dictionary.md](docs/metric_dictionary.md).
 
+## Screenshots
+
+<img width="1651" height="867" alt="image" src="https://github.com/user-attachments/assets/1d3e4e71-0d0c-4112-92f9-891e763d64a8" />
+<img width="1668" height="966" alt="image" src="https://github.com/user-attachments/assets/7359ec87-0653-4b5f-a2cf-6b709b111376" />
+https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/blob/main/screenshots/04_claim_journey.png
+https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/blob/main/screenshots/01_operations_overview.png
+
+
 ## Business pain point
 
 Northstar set a **14-day first-pass adjudication SLA** and a **7-day payment SLA** after approval. Examiners still work from status lists in the claims system. Those lists mix aliases (`APPR`, `adj-denied`, `pending info`), duplicate extract reloads, and header dates that disagree with the event log. The result: backlog hides in "in review," authorization denials recycle through Summit Orthopedics and Lakeside Imaging, and Heartland Medicaid payment lag sits at 23 days against a 7-day target.
