@@ -16,4 +16,4 @@ This is a Version 1 portfolio system, not a production claims warehouse.
 
 **No cost accounting.** Rework cost is implied by volume, not priced with examiner FTE or appeal vendor spend.
 
-**CI is optional.** `.github/workflows/ci.yml` runs when you push. This project does not push for you.
+**CI covers the DuckDB pipeline and the Postgres ingestion path, not a Postgres read path.** The `local-ci` workflow runs `dbt test` against DuckDB and separately validates the Supabase/Postgres load path against a real Postgres container on every push and pull request, but dbt does not yet read from Postgres, so CI does not exercise that integration. See [Migration status](../README.md#migration-status-duckdb-stable-vs-postgressupabase-in-progress) in the README.

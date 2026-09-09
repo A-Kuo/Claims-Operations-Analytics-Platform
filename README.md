@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue?logo=python&logoColor=blue&style=plastic)](https://www.python.org/downloads/release/python-3120/)
 [![MLOps](https://img.shields.io/badge/Fullstack-Ubuntu-orange?logo=ubuntu&style=plastic)](https://ubuntu.com/engage/mlops-guide)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-608CC4?&logoColor=608CC4&logo=postgresql&style=plastic)](https://www.postgresql.org/docs/18/index.html)
+[![CI](https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/actions/workflows/ci.yml/badge.svg)](https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/actions/workflows/ci.yml)
 
 An end-to-end analytics project that models the claims lifecycle from submission through adjudication and payment, turning raw operational events into validated KPI dashboards for backlog, denial, turnaround-time, and provider-performance analysis.
 
@@ -11,6 +12,12 @@ This project is a business-facing data product: raw claims and adjudication data
 **The data is synthetic.** Identifiers, providers, payers, and amounts do not represent real patients or organizations. The value of the project is the modeling, data-quality work, KPI definitions, and operational interpretation.
 
 All processing runs on a local DuckDB file. Nothing is sent to a cloud warehouse unless you choose to push the repo yourself.
+
+## At a glance
+
+Claims examiners work off a messy status field, and this platform rebuilds true claim state from a 178,073-row raw event log to expose backlog, denial, and payment-lag risk against Northstar's 14-day SLA. The stack is dbt Core and DuckDB, structured as a star schema of 5 facts, 6 dimensions, and 11 KPI marts feeding a Streamlit dashboard, with a Supabase/Postgres raw-ingestion layer being built alongside it. The evidence is 83 dbt tests gated in CI on every push and pull request, plus a separate CI job that validates the Postgres ingestion path end-to-end against a live container.
+
+The DuckDB and dbt pipeline is stable — it's the live source for every KPI and dashboard page in this repo. The Postgres/Supabase ingestion layer is still in progress: it's built and validated end-to-end in CI, but nothing downstream reads from it yet. See [Migration status](#migration-status-duckdb-stable-vs-postgressupabase-in-progress) below for exactly where that stands.
 
 ## Who uses this
 
@@ -76,6 +83,12 @@ flowchart LR
 ```
 
 Current status comes from the **latest canonical event**, not the messy header status field. Header dates are fallbacks only.
+
+## Migration status: DuckDB (stable) vs. Postgres/Supabase (in progress)
+
+The DuckDB and dbt pipeline is finished and stable. It's CI-tested on every push through the `dbt` job, which runs `dbt seed`, `dbt run`, and `dbt test` against DuckDB and passes all 83 tests. This is the pipeline behind every mart and every dashboard page in this repo today.
+
+The Postgres/Supabase ingestion layer is real, but it isn't load-bearing yet. The schema migrations live in `supabase/migrations/` (schema creation, raw table DDL, indexes), the seed crosswalks live in `supabase/seeds/`, and the load path is `scripts/build_postgres_extracts.py` followed by `scripts/load_raw_to_postgres.py` and `scripts/validate_postgres_load.py`. A separate CI job, `supabase-postgres`, spins up a real Postgres container and runs that whole path — generate, transform, load, validate — on every push, and it passes. What it doesn't do yet is feed the analytics layer: `models/staging/_sources.yml` still points only at the DuckDB `raw` schema, so no dbt model or KPI reads from Postgres. DuckDB remains the single source of truth for every number in this README until that switch happens.
 
 ## Project layout
 
@@ -186,11 +199,11 @@ The short operations memo is [analyses/operations_memo.md](analyses/operations_m
 
 ## Resume framing
 
-**Data analyst:** Built a claims analytics platform that turned raw operational claim events into validated KPI dashboards tracking turnaround time, denial patterns, and provider-level bottlenecks.
+**Data analyst:** Built a claims analytics platform that reconstructs true claim status from a 178,073-row raw event log (not the messy header status field), driving KPI dashboards — turnaround time, denial rate, backlog, payment lag — across 41,915 KPI-eligible claims.
 
-**Analytics engineer:** Designed dbt models and analytics marts for claims lifecycle, denial, and payment workflows, with tested KPI definitions for backlog, SLA breaches, and first-pass resolution.
+**Analytics engineer:** Designed a denormalized dbt star schema (5 facts, 6 dimensions, 11 KPI marts) for the claims lifecycle, denial, and payment workflows, backed by 83 dbt tests CI-gated on every push, alongside a separate CI job that validates the Postgres ingestion path end-to-end against a live container.
 
-**Data engineer:** Built an end-to-end claims data pipeline from raw claim-event ingestion through validated transformation layers and dashboard-ready marts, with schema testing and workflow documentation.
+**Data engineer:** Built an end-to-end claims pipeline — synthetic event generation, staging, dimensional modeling, dashboard-ready marts — plus a parallel Supabase/Postgres raw-ingestion path (schema migrations, seed crosswalks, load-and-validate scripts) proven end-to-end against a real Postgres container in CI.
 
 ## License
 
