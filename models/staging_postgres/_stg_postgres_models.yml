@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_claim_headers_pg
+    description: >
+      Proof-of-concept staging model reading claim headers directly from the
+      Supabase Postgres raw.claim_headers table via the DuckDB postgres
+      ATTACH (profile target ci_pg in CI, dev_pg for optional local use).
+      Casts and trims columns only. Does not join the status crosswalk and
+      does not feed any intermediate model, mart, or KPI.
+    columns:
+      - name: header_id
+        description: Postgres surrogate primary key. Unique per row.
+        data_tests:
+          - not_null
+          - unique
+      - name: claim_id
+        description: >
+          Business claim identifier. Intentionally NOT tested unique —
+          duplicate claim_id rows from repeated extract loads are expected
+          and are the reason header_id exists as the real primary key.
+        data_tests:
+          - not_null

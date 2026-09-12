@@ -13,3 +13,29 @@ claims_ops:
       path: target/ci.duckdb
       threads: 2
       schema: main
+
+    ci_pg:
+      type: duckdb
+      path: target/ci_pg.duckdb
+      threads: 2
+      schema: main
+      extensions:
+        - postgres
+      attach:
+        - path: "{{ env_var('SUPABASE_DB_URL', '') }}"
+          type: postgres
+          alias: pg
+          read_only: true
+
+    dev_pg:
+      type: duckdb
+      path: target/dev_pg.duckdb
+      threads: 4
+      schema: main
+      extensions:
+        - postgres
+      attach:
+        - path: "{{ env_var('SUPABASE_DB_URL', '') }}"
+          type: postgres
+          alias: pg
+          read_only: true

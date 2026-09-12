@@ -27,6 +27,10 @@ models:
     staging:
       +schema: staging
       +materialized: view
+    staging_postgres:
+      +schema: postgres_staging
+      +materialized: view
+      +enabled: "{{ target.name in ['ci_pg', 'dev_pg'] }}"
     intermediate:
       +schema: intermediate
       +materialized: view

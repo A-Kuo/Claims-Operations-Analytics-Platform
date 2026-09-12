@@ -72,3 +72,15 @@ jobs:
         run: python scripts/load_raw_to_postgres.py
       - name: Validate row counts
         run: python scripts/validate_postgres_load.py
+      - name: dbt deps (ci_pg)
+        env:
+          DBT_PROFILES_DIR: ${{ github.workspace }}
+        run: dbt deps --target ci_pg
+      - name: dbt run stg_claim_headers_pg (ci_pg)
+        env:
+          DBT_PROFILES_DIR: ${{ github.workspace }}
+        run: dbt run --target ci_pg --select stg_claim_headers_pg
+      - name: dbt test stg_claim_headers_pg (ci_pg)
+        env:
+          DBT_PROFILES_DIR: ${{ github.workspace }}
+        run: dbt test --target ci_pg --select stg_claim_headers_pg

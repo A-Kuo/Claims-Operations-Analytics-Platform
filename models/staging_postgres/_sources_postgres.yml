@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: postgres_raw
+    database: pg
+    schema: raw
+    description: >
+      Live Supabase Postgres `raw` schema, queried directly from DuckDB
+      through the `postgres` extension ATTACH configured on the `ci_pg` /
+      `dev_pg` profile targets. This is the same raw.claim_headers table
+      populated by scripts/load_raw_to_postgres.py, not a copy.
+    tables:
+      - name: claim_headers
+        description: >
+          Claim-level extract loaded into Postgres. header_id is a real
+          surrogate primary key, added specifically so duplicate claim_id
+          rows from repeated extract loads land intact instead of being
+          rejected or deduplicated on load.
+        columns:
+          - name: header_id
+            description: Postgres surrogate primary key (BIGSERIAL). Unique per row, even across duplicate claim_id reloads.
+          - name: claim_id
+            description: Business claim identifier. Not unique — duplicate reloads are expected and intentional.
+          - name: member_id
+          - name: provider_id
+          - name: payer_id
+          - name: service_category
+          - name: billed_amount
+          - name: header_status_raw
+          - name: submission_date
+          - name: header_last_updated_at
+          - name: source_file
+          - name: batch_id
+          - name: ingest_ts
