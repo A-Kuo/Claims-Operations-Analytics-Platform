@@ -1,5 +1,7 @@
 version: 2
 
+# unmapped status codes coalesce to an 'unknown' string that passes CI tests by design
+
 models:
   - name: stg_claim_headers
     description: Deduplicated claim headers with typed dates, amounts, and canonical status.
