@@ -1,0 +1,34 @@
+name: load-supabase
+
+on:
+  workflow_dispatch:
+
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_PROD_DB_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Apply Supabase migrations
+        run: |
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/create_schemas.sql
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/create_raw_tables.sql
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/create_indexes.sql
+      - name: Apply Supabase seeds
+        run: |
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/seeds/00_status_crosswalk.sql
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/seeds/01_event_type_crosswalk.sql
+      - name: Generate synthetic extracts
+        run: python scripts/generate_raw_data.py
+      - name: Build Postgres-shaped extracts
+        run: python scripts/build_postgres_extracts.py
+      - name: Load raw extracts into Supabase
+        run: python scripts/load_raw_to_postgres.py
+      - name: Validate row counts
+        run: python scripts/validate_postgres_load.py
