@@ -3,7 +3,6 @@
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue?logo=python&logoColor=blue&style=plastic)](https://www.python.org/downloads/release/python-3120/)
 [![MLOps](https://img.shields.io/badge/Fullstack-Ubuntu-orange?logo=ubuntu&style=plastic)](https://ubuntu.com/engage/mlops-guide)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18.6-608CC4?&logoColor=608CC4&logo=postgresql&style=plastic)](https://www.postgresql.org/docs/18/index.html)
-[![CI](https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/actions/workflows/ci.yml/badge.svg)](https://github.com/A-Kuo/Claims-Operations-Analytics-Platform/actions/workflows/ci.yml)
 
 An end-to-end analytics project that models the claims lifecycle from submission through adjudication and payment, turning raw operational events into validated KPI dashboards for backlog, denial, turnaround-time, and provider-performance analysis.
 
