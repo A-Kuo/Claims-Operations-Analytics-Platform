@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "ClaimPulse Analytics",
   description:
     "Claims operations analytics: backlog, denial, and payment-lag risk against SLA targets, computed from the DuckDB claims warehouse.",
+  icons: {
+    icon: { url: "/icon.png", type: "image/png" },
+  },
 };
 
 export default function RootLayout({
