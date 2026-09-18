@@ -10,13 +10,11 @@ This project is a business-facing data product: raw claims and adjudication data
 
 **The data is synthetic.** Identifiers, providers, payers, and amounts do not represent real patients or organizations. The value of the project is the modeling, data-quality work, KPI definitions, and operational interpretation.
 
-All processing runs on a local DuckDB file. Nothing is sent to a cloud warehouse unless you choose to push the repo yourself.
-
 ## At a glance
 
 Claims examiners work off a messy status field, and this platform rebuilds true claim state from a 178,073-row raw event log to expose backlog, denial, and payment-lag risk against Northstar's 14-day SLA. The stack is dbt Core and DuckDB, structured as a star schema of 5 facts, 6 dimensions, and 11 KPI marts feeding a Streamlit dashboard, with a Supabase/Postgres raw-ingestion layer being built alongside it. The evidence is 83 dbt tests gated in CI on every push and pull request, plus a separate CI job that validates the Postgres ingestion path end-to-end against a live container.
 
-The DuckDB and dbt pipeline is stable — it's the live source for every KPI and dashboard page in this repo. The Postgres/Supabase ingestion layer is still in progress: dbt now reads from it too, through a DuckDB `postgres` extension ATTACH, but only for one proof-of-concept staging model that doesn't feed any KPI or dashboard yet. See [Migration status](#migration-status-duckdb-stable-vs-postgressupabase-in-progress) below for exactly where that stands.
+[Dashboard](https://claims-operations-analytics-platfor.vercel.app/)
 
 ## Who uses this
 
