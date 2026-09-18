@@ -1,12 +1,18 @@
 "use client";
 
 import { Activity, Bell, Search } from "lucide-react";
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const NAV_ITEMS = ["Overview", "Denials & Rework", "Provider & Service", "Claim Journey"];
+const NAV_ITEMS = [
+  { label: "Overview", href: "/" },
+  { label: "Denials & Rework", href: "/denials-rework" },
+  { label: "Provider & Service", href: "/provider-service" },
+  { label: "Claim Journey", href: "/claim-journey" },
+];
 
 export default function TopNav() {
-  const [active, setActive] = useState("Overview");
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -21,20 +27,22 @@ export default function TopNav() {
         </div>
 
         <nav className="hidden flex-1 items-center justify-center gap-1 rounded-full bg-slate-100 p-1 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item}
-              onClick={() => setActive(item)}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium tabular-nums transition-colors ${
-                active === item
-                  ? "bg-white text-sky-700 shadow-card"
-                  : "text-slate-500 hover:text-slate-700"
-              }`}
-              type="button"
-            >
-              {item}
-            </button>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`rounded-full px-3.5 py-1.5 text-sm font-medium tabular-nums transition-colors ${
+                  isActive
+                    ? "bg-white text-sky-700 shadow-card"
+                    : "text-slate-500 hover:text-slate-700"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3">

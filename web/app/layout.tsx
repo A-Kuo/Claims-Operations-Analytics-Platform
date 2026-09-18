@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import TopNav from "./components/TopNav";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -21,7 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={jakarta.variable}>
-      <body>{children}</body>
+      <body>
+        <div className="min-h-screen bg-canvas">
+          <TopNav />
+          <main className="mx-auto max-w-7xl">{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
