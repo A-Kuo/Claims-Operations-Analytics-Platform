@@ -15,6 +15,8 @@ This project is a business-facing data product: raw claims and adjudication data
 Claims examiners work off a messy status field, and this platform rebuilds true claim state from a 178,073-row raw event log to expose backlog, denial, and payment-lag risk against Northstar's 14-day SLA. The stack is dbt Core and DuckDB, structured as a star schema of 5 facts, 6 dimensions, and 11 KPI marts feeding a Streamlit dashboard, with a Supabase/Postgres raw-ingestion layer being built alongside it. The evidence is 83 dbt tests gated in CI on every push and pull request, plus a separate CI job that validates the Postgres ingestion path end-to-end against a live container.
 
 [Dashboard](https://claims-operations-analytics-platfor.vercel.app/)
+<img width="935" height="369" alt="image" src="https://github.com/user-attachments/assets/ff940841-8c63-4277-ab86-b9b143f9184e" />
+
 
 ## Who uses this
 
@@ -43,15 +45,6 @@ The platform supports five decisions:
 | Paid-to-billed (paid claims) | 63.2% | Paid amount / billed amount |
 
 Full logic lives in [docs/metric_dictionary.md](docs/metric_dictionary.md).
-
-## Screenshots
-
-<img width="1651" height="867" alt="image" src="https://github.com/user-attachments/assets/1d3e4e71-0d0c-4112-92f9-891e763d64a8" />
-<img width="1668" height="966" alt="image" src="https://github.com/user-attachments/assets/7359ec87-0653-4b5f-a2cf-6b709b111376" />
-<img width="1675" height="897" alt="image" src="https://github.com/user-attachments/assets/0846881c-cb95-4999-ab8a-10a4481eccd7" />
-<img width="1668" height="867" alt="image" src="https://github.com/user-attachments/assets/31310110-9631-4873-b2e5-65de0fb0b44e" />
-
-
 
 ## Business pain point
 
