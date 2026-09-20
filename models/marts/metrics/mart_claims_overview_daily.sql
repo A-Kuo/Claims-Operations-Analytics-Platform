@@ -7,7 +7,8 @@ with claims as (
 spine as (
     select date_day
     from {{ ref('dim_date') }}
-    where date_day between date '2025-01-01' and {{ as_of_date() }}
+    where date_day between (select cast(date_trunc('year', min(submission_date)) as date) from claims)
+        and {{ as_of_date() }}
 ),
 
 submitted as (

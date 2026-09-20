@@ -1,6 +1,15 @@
-with dates as (
-    select date '2024-01-01' + cast(generate_series as integer) as date_day
-    from generate_series(0, 1461)
+-- Spine spans one year before the earliest service date through the end of the
+-- year after the as-of date, so it follows whatever window the extracts cover.
+with bounds as (
+    select
+        cast(date_trunc('year', min(service_date)) - interval 1 year as date) as start_day,
+        cast(date_trunc('year', {{ as_of_date() }}) + interval 2 year - interval 1 day as date) as end_day
+    from {{ ref('stg_claim_headers') }}
+),
+
+dates as (
+    select cast(date_series.range as date) as date_day
+    from bounds, range(bounds.start_day, bounds.end_day + 1, interval 1 day) as date_series
 )
 
 select

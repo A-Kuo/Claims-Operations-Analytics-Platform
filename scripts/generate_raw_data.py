@@ -170,7 +170,37 @@ def parse_args() -> argparse.Namespace:
         help="Directory for CSV extracts",
     )
     parser.add_argument("--seed", type=int, default=SEED)
+    parser.add_argument("--claims", type=int, default=N_CLAIMS, help="Number of claims")
+    parser.add_argument(
+        "--members",
+        type=int,
+        default=None,
+        help="Number of members (default scales with --claims, 8000 at 42000)",
+    )
+    parser.add_argument(
+        "--providers",
+        type=int,
+        default=None,
+        help="Number of providers (default scales with sqrt of --claims, 420 at 42000)",
+    )
+    parser.add_argument("--start", type=date.fromisoformat, default=WINDOW_START, help="First service date (YYYY-MM-DD)")
+    parser.add_argument("--as-of", type=date.fromisoformat, default=AS_OF, help="Extract as-of date (YYYY-MM-DD)")
     return parser.parse_args()
+
+
+def apply_config(args: argparse.Namespace) -> None:
+    global N_CLAIMS, N_MEMBERS, N_PROVIDERS, WINDOW_START, AS_OF
+    if args.claims < 1:
+        raise SystemExit("--claims must be at least 1")
+    if args.start >= args.as_of:
+        raise SystemExit("--start must be before --as-of")
+    N_CLAIMS = args.claims
+    WINDOW_START = args.start
+    AS_OF = args.as_of
+    scale = args.claims / 42000
+    N_MEMBERS = args.members if args.members is not None else max(1, round(8000 * scale))
+    n_groups = sum(spec["n"] for spec in GROUP_SPECS)
+    N_PROVIDERS = args.providers if args.providers is not None else max(n_groups, round(420 * scale**0.5))
 
 
 def daterange_days(start: date, end: date) -> int:
@@ -271,7 +301,9 @@ def build_members(rng: random.Random) -> list[dict]:
                 "gender": rng.choice(["F", "M", "U"]),
                 "plan_type": rng.choice(PLAN_TYPES),
                 "region": region,
-                "enrollment_date": random_date(rng, date(2019, 1, 1), date(2025, 6, 1)).isoformat(),
+                "enrollment_date": random_date(
+                    rng, WINDOW_START - timedelta(days=2192), WINDOW_START + timedelta(days=151)
+                ).isoformat(),
                 "product_line": rng.choice(["Fully insured", "ASO", "Medicare Advantage", "Medicaid MCO"]),
             }
         )
@@ -303,7 +335,7 @@ def specialty_service(specialty: str | None, rng: random.Random) -> dict:
 
 def month_weight(service_date: date) -> float:
     # January deductible rush, December holiday dip, otherwise slight growth.
-    growth = 1.0 + (service_date.year - 2025) * 0.08 + service_date.month * 0.004
+    growth = 1.0 + (service_date.year - WINDOW_START.year) * 0.08 + service_date.month * 0.004
     if service_date.month == 1:
         return growth * 1.22
     if service_date.month == 12:
@@ -638,6 +670,7 @@ def build_claims(
 
 def main() -> None:
     args = parse_args()
+    apply_config(args)
     rng = random.Random(args.seed)
     output_dir = Path(args.output_dir)
 
@@ -750,6 +783,7 @@ def main() -> None:
     )
 
     print(f"Wrote extracts to {output_dir.resolve()}")
+    print(f"  window:    {WINDOW_START} to {AS_OF}")
     print(f"  providers: {len(providers)}")
     print(f"  members:   {len(members)}")
     print(f"  headers:   {len(headers)} (includes intentional duplicates)")

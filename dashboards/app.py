@@ -12,7 +12,6 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "target" / "claims_ops.duckdb"
-AS_OF = pd.Timestamp("2026-08-17")
 SLA_DAYS = 14
 
 ACCENT = "#0F4C5C"
@@ -43,6 +42,17 @@ def connect():
     if not DB_PATH.exists():
         return None
     return duckdb.connect(str(DB_PATH), read_only=True)
+
+
+def _load_as_of() -> pd.Timestamp:
+    con = connect()
+    if con is None:
+        return pd.Timestamp.today().normalize()
+    row = con.execute("select max(date_day) from marts.dim_date where is_as_of_date").fetchone()
+    return pd.Timestamp(row[0])
+
+
+AS_OF = _load_as_of()
 
 
 @st.cache_data(show_spinner=False)
