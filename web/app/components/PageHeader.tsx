@@ -1,11 +1,10 @@
 "use client";
 
-import { ChevronDown, Download, Plus } from "lucide-react";
+import { Download, Plus } from "lucide-react";
 
 interface PageHeaderProps {
   title: string;
   subtitle: string;
-  rangeLabel?: string;
   exportFilename: string;
   exportHeaders: string[];
   exportRows: (string | number | null)[][];
@@ -34,7 +33,6 @@ function downloadCsv(
 export default function PageHeader({
   title,
   subtitle,
-  rangeLabel = "Last 12 weeks",
   exportFilename,
   exportHeaders,
   exportRows,
@@ -49,13 +47,6 @@ export default function PageHeader({
       </div>
 
       <div className="flex flex-wrap items-center gap-2.5">
-        <button
-          type="button"
-          className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-600 shadow-card hover:bg-slate-50"
-        >
-          {rangeLabel}
-          <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
-        </button>
         <button
           type="button"
           onClick={() => downloadCsv(exportFilename, exportHeaders, exportRows)}

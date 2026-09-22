@@ -1,0 +1,29 @@
+name: load-serving
+
+on:
+  workflow_dispatch:
+
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_PROD_DB_URL }}
+      DBT_PROFILES_DIR: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build the DuckDB warehouse
+        run: |
+          python scripts/generate_raw_data.py
+          python scripts/load_raw.py --duckdb-path target/ci.duckdb
+          dbt deps --target ci
+          dbt seed --target ci
+          dbt run --target ci
+      - name: Apply claims search migration
+        run: psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/create_claims_search.sql
+      - name: Load claims into serving.claims_search
+        run: python scripts/load_serving_claims.py --duckdb-path target/ci.duckdb
